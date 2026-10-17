@@ -1,0 +1,1 @@
+export default function App(){return <h1>CFCD Case Tracking System</h1>}
