@@ -7,7 +7,7 @@
   "settings": {
     "editor.formatOnSave": true,
     "files.eol": "\n",
-    "javascript.preferences.quoteStyle": "single"
+    "js/ts.preferences.quoteStyle": "single"
   },
   "extensions": {
     "recommendations": [
