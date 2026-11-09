@@ -1,0 +1,11 @@
+:root{
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  color:#1b2a3e;
+  background:#f4f7fb;
+  font-synthesis:none;
+  text-rendering:optimizeLegibility;
+}
+*{box-sizing:border-box}
+html,body,#root{min-width:320px;min-height:100%;margin:0}
+body{min-height:100vh;background:#f4f7fb}
+button,input,select,textarea{font:inherit}
