@@ -5,6 +5,7 @@ React + Vite capstone prototype for the Communication Forensics and Cybercrime D
 ## Included portals
 
 The project starts at one sign-in screen with **CFCD** and **Court** choices. Administrators use the CFCD choice. It routes each demo account to its appropriate interface:
+
 =======
 The project starts at a single sign-in screen and routes each demo account to its portal:
 
