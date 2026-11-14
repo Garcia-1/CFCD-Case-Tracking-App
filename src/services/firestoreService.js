@@ -142,12 +142,14 @@ export async function deleteDocument(session, collection, id, { ignoreNotFound =
 async function commitDocuments(session, writes) {
   const payload = writes.map((write) => {
     if (write.delete) return { delete: documentName(write.collection, write.id) };
-    return {
+    const update = {
       update: {
         name: documentName(write.collection, write.id),
         fields: encodeFields(cleanData(write.data)),
       },
     };
+    if (write.fieldPaths?.length) update.updateMask = { fieldPaths: write.fieldPaths };
+    return update;
   });
   return request(session, `${DOCUMENTS()}:commit`, {
     method: 'POST',
@@ -232,9 +234,18 @@ export async function updateCaseRecord(session, id, record) {
 }
 
 export async function updateAssignedCaseDocument(session, id, record) {
-  const full = { ...record, uid: id, updatedAt: new Date().toISOString() };
-  await commitDocuments(session, [{ collection: 'cases', id, data: full }]);
-  return full;
+  const patch = {
+    analystReport: record.analystReport,
+    updatedAt: record.updatedAt || new Date().toISOString(),
+    history: record.history || [],
+  };
+  await commitDocuments(session, [{
+    collection: 'cases',
+    id,
+    data: patch,
+    fieldPaths: ['analystReport', 'updatedAt', 'history'],
+  }]);
+  return patch;
 }
 
 export async function createUrgentRequest(session, record) {

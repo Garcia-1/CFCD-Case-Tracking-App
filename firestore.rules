@@ -72,7 +72,10 @@ service cloud.firestore {
         ));
       allow create: if isSupervisor();
       allow update: if isSupervisor() || (isAnalyst()
-        && resource.data.analyst == profile().name
+        && (
+          (('analystUid' in resource.data) && resource.data.analystUid == request.auth.uid)
+          || resource.data.analyst == profile().name
+        )
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['analystReport', 'updatedAt', 'history']));
       allow delete: if isAdmin();
     }
