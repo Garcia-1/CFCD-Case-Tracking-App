@@ -120,6 +120,7 @@
     .cfcd-demo-card { padding: 12px; }
     .cfcd-demo-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
   }
+<<<<<<< HEAD
 
 /* Per-portal photographic backdrop is deliberately translucent to keep input text readable. */
 .cfcd-login-main{position:relative;isolation:isolate;overflow:hidden}
@@ -137,3 +138,5 @@
 .cfcd-activation-dialog h2{margin:0 0 13px}.cfcd-activation-dialog p{font-size:14px}
 .cfcd-activation-notice{background:#fff6e5;border:1px solid #f3d8a5;color:#8a5814;border-radius:9px;padding:12px}
 .cfcd-activation-close{position:absolute;right:17px;top:11px;background:transparent;border:0;font-size:28px;color:#667b93;cursor:pointer}
+=======
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87

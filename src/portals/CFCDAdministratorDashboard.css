@@ -255,6 +255,7 @@
   margin:0 auto 15px;
   border-radius:14px;
 }
+<<<<<<< HEAD
 
 /* Prominent centred emblem and JCF organisation header. */
 .cfcd-sidebar-brand{justify-content:center;position:relative;padding:20px 12px 25px}
@@ -264,3 +265,5 @@
 .cfcd-organisation-title strong{font-size:14px;color:#203850}
 .cfcd-organisation-title small{font-size:11px;color:#73849a}
 @media(max-width:700px){.cfcd-sidebar-brand .cfcd-brand-logo{width:100px;height:100px}.cfcd-organisation-title strong{font-size:12px}}
+=======
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
