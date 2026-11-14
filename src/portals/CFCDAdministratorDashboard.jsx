@@ -351,8 +351,6 @@ export default function CFCDAdministratorDashboard({ session, onSignOut }) {
     <div className="cfcd-admin-app">
       <aside className={`cfcd-sidebar ${mobileNavOpen ? "is-open" : ""}`}>
         <div className="cfcd-sidebar-brand">
-          <img className="cfcd-brand-logo" src={cfcdLogo} alt="CFCD logo" />
-          <div className="cfcd-brand-text"><strong>CFCD Case Tracking System</strong><span>Admin Portal</span></div>
           <button className="cfcd-icon-button cfcd-mobile-close" onClick={() => setMobileNavOpen(false)} aria-label="Close navigation"><Icon name="close" /></button>
         </div>
         <div className="cfcd-nav-label">WORKSPACE</div>
@@ -378,6 +376,8 @@ export default function CFCDAdministratorDashboard({ session, onSignOut }) {
         <header className="cfcd-topbar">
           <div className="cfcd-topbar-left">
             <button className="cfcd-icon-button cfcd-mobile-menu" onClick={() => setMobileNavOpen(true)} aria-label="Open navigation"><Icon name="menu" /></button>
+            <img className="cfcd-topbar-logo" src={cfcdLogo} alt="CFCD logo" />
+            <div className="cfcd-topbar-brand"><strong>CFCD Case Management</strong><small>Administrator Portal</small></div>
             <div className="cfcd-breadcrumb"><span>Admin Portal</span><Icon name="chevron" size={14} /><strong>{NAV_ITEMS.find((item) => item.id === activePage)?.label || "Overview"}</strong></div>
           </div>
           <div className="cfcd-topbar-right">

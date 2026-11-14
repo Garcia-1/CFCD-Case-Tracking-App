@@ -131,7 +131,8 @@ function validateProfile(profile, selectedPortal) {
   if (String(profile.status || '').toLowerCase() !== ACTIVE_STATUS) {
     throw new Error(`This account is ${String(profile.status || 'not active').toLowerCase()}. Contact the system administrator.`);
   }
-  if (profile.portal !== selectedPortal) {
+  const administratorUsesCfcdSignIn = profile.portal === 'admin' && selectedPortal === 'cfcd';
+  if (profile.portal !== selectedPortal && !administratorUsesCfcdSignIn) {
     const portalLabel = profile.portal === 'cfcd' ? 'CFCD' : profile.portal === 'court' ? 'Court' : 'Admin';
     throw new Error(`This account belongs to the ${portalLabel} portal. Select that portal and sign in again.`);
   }

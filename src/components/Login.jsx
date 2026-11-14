@@ -45,7 +45,6 @@ export const DEMO_ACCOUNTS = [
 const PORTALS = [
   { id: 'cfcd', label: 'CFCD' },
   { id: 'court', label: 'Court' },
-  { id: 'admin', label: 'Admin' },
 ];
 
 const SHOW_DEMO_ACCOUNTS = import.meta.env.VITE_ENABLE_DEMO_ACCOUNTS !== 'false';
@@ -57,9 +56,9 @@ export default function Login({ onLogin }) {
   const [showPassword, setShowPassword] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [showActivation, setShowActivation] = useState(false);
 
   const getIdPlaceholder = () => {
-    if (role === 'admin') return 'Admin email address';
     if (role === 'cfcd') return 'CFCD email address';
     return 'Court email address';
   };
@@ -70,7 +69,7 @@ export default function Login({ onLogin }) {
   };
 
   const useDemoAccount = (account) => {
-    setRole(account.portal);
+    setRole(account.portal === 'admin' ? 'cfcd' : account.portal);
     setId(account.username);
     setPassword(account.password);
     setShowPassword(false);
@@ -243,10 +242,13 @@ export default function Login({ onLogin }) {
               </section>
             )}
 
+            <section className="cfcd-login-access-note"><strong>Need access to the system?</strong><p>Account activation requires an administrator invitation and approval.</p><button type="button" className="cfcd-activate-link" onClick={()=>setShowActivation(true)}>Activate account</button></section>
+
             <p className="cfcd-login-bottom-note">CFCD Case Tracking System · Access is limited to authorised users.</p>
           </div>
         </section>
       </main>
+      {showActivation&&<div className="cfcd-activation-overlay" onMouseDown={event=>{if(event.target===event.currentTarget)setShowActivation(false)}}><section className="cfcd-activation-dialog" role="dialog" aria-modal="true" aria-labelledby="activation-title"><button className="cfcd-activation-close" type="button" aria-label="Close" onClick={()=>setShowActivation(false)}>×</button><h2 id="activation-title">Account activation</h2><p>Activation is handled by the system administrator. Contact your supervisor or administrator for an invitation and account approval.</p><p className="cfcd-activation-notice">This prototype does not validate invitation codes or activate accounts. Email invitations, administrator approval, and MFA require backend services.</p><button className="cfcd-signin-button" type="button" onClick={()=>setShowActivation(false)}>Return to sign in</button></section></div>}
     </>
   );
 }
