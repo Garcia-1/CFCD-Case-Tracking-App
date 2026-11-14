@@ -104,11 +104,11 @@ The login and administrator dashboard use the same core styling:
 
 ## User interface updates
 
-- Only **CFCD** and **Court** sign-in tabs are shown. Use `admin@cfcd.demo` on the CFCD tab for the administrator dashboard.
-- The respective court and CFCD photos are displayed translucently behind the sign-in area using files in `src/assets/`.
-- **Activate Account** opens a prototype explanation. It does **not** validate invitations or activate accounts; administrator approval, email invitations, MFA and secure sessions need backend implementation.
+- Only **CFCD** and **Court** sign-in tabs are shown on the login page. User `admin@cfcd.demo` now signs in on the CFCD tab for the administrator dashboard.
+- Added court and CFCD photos that are displayed translucently behind the sign-in area using files in `src/assets/`.
+- Added **Activate Account** opens a prototype explanation. It does **not** validate invitations or activate accounts; administrator approval, email invitations, MFA and secure sessions need backend implementation.
 - Centre-aligned larger CFCD logo appears at the top of each portal sidebar; unnecessary breadcrumbs have been removed. The admin header identifies the Communication Forensics and Cybercrime Division, Jamaica Constabulary Force.
 - The shared avatar menu (`ProfileMenu.jsx` and `ProfileMenu.css`) offers Profile and Sign Out. Profile edits update only current React memory state; assigned roles cannot be changed.
-- **Register New CFCD Case** contains the requested divisions and an **Other** text field.
-- **Court — Submit Urgent Request** contains the requested court options and an **Other** text field.
-=======
+- **Register New CFCD Case** now contains the list of divisions and an **Other** text field.
+- **Court — Submit Urgent Request** now contains the list of court options and an **Other** text field.
+
