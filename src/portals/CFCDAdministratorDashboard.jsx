@@ -1,5 +1,9 @@
 import React, { useMemo, useState } from "react";
 import cfcdLogo from "../assets/CFCD-logo.jpg";
+<<<<<<< HEAD
+import ProfileMenu from "../components/ProfileMenu";
+=======
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
 import "./CFCDAdministratorDashboard.css";
 
 /**
@@ -10,7 +14,11 @@ import "./CFCDAdministratorDashboard.css";
  */
 
 const INITIAL_USERS = [
+<<<<<<< HEAD
+  { id: 1, name: "Administrator", email: "admin@cfcd.gov.jm", role: "System Administrator", status: "Active", twoFactor: true },
+=======
   { id: 1, name: "Administrator", email: "admin@jcf.gov.jm", role: "System Administrator", status: "Active", twoFactor: true },
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
   { id: 2, name: "Sekou Jacas", email: "sekou.jacas@jcf.gov.jm", role: "CFCD Analyst", status: "Active", twoFactor: true },
   { id: 3, name: "Shanara Richmond", email: "shanara.richmond@moj.gov.jm", role: "Clerk of Court", status: "Active", twoFactor: true },
   { id: 4, name: "Kadian Morris", email: "kadian.morris@moj.gov.jm", role: "Prosecutor", status: "Pending", twoFactor: false },
@@ -110,7 +118,11 @@ function Modal({ title, subtitle, onClose, children, onSubmit, submitLabel = "Sa
   );
 }
 
+<<<<<<< HEAD
+export default function CFCDAdministratorDashboard({ accountName = 'Administrator', accountEmail = '', notifications = true, onProfileSave, onSignOut }) {
+=======
 export default function CFCDAdministratorDashboard({ onSignOut }) {
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
   const [activePage, setActivePage] = useState("overview");
   const [users, setUsers] = useState(INITIAL_USERS);
   const [roles, setRoles] = useState(INITIAL_ROLES);
@@ -171,13 +183,22 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
     if (modal.user) {
       const updated = { ...modal.user, name, email, role, twoFactor };
       setUsers((previous) => previous.map((item) => item.id === modal.user.id ? updated : item));
+<<<<<<< HEAD
+      addAuditEvent("User updated", name, "Account details updated.");
+      notify("User details updated.");
+=======
       addAuditEvent("User updated", name, "Account details updated in prototype");
       notify("User details updated in this prototype.");
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
     } else {
       const added = { id: Date.now(), name, email, role, status: "Pending", twoFactor };
       setUsers((previous) => [added, ...previous]);
       addAuditEvent("User created", name, `Assigned role: ${role}`);
+<<<<<<< HEAD
+      notify("User created with Pending status.");
+=======
       notify("Demo user created with Pending status.");
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
     }
     setModal(null);
   };
@@ -186,6 +207,27 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
     if (action === "Suspend") {
       if (user.status === "Suspended") {
         setUsers((previous) => previous.map((item) => item.id === user.id ? { ...item, status: "Active" } : item));
+<<<<<<< HEAD
+        addAuditEvent("User reactivated", user.name, "Account access re-enabled.");
+        notify(`${user.name}'s demo account has been reactivated.`);
+      } else {
+        setUsers((previous) => previous.map((item) => item.id === user.id ? { ...item, status: "Suspended" } : item));
+        addAuditEvent("User suspended", user.name, "Account access disabled.");
+        notify(`${user.name}'s demo account has been suspended.`);
+      }
+    } else if (action === "Reset Password") {
+      addAuditEvent("Password reset requested", user.name, "Demo only; no password email sent");
+      notify(`Password reset would be initiated for ${user.name} by a secure backend.`);
+    } else if (action === "Reset Authenticator") {
+      setUsers((previous) => previous.map((item) => item.id === user.id ? { ...item, twoFactor: false } : item));
+      addAuditEvent("Authenticator reset", user.name, "Two-factor enrollment cleared.");
+      notify(`Two-factor enrollment cleared for ${user.name}.`);
+    } else if (action === "Delete") {
+      if (window.confirm(`Delete account for ${user.name}? This only changes local state.`)) {
+        setUsers((previous) => previous.filter((item) => item.id !== user.id));
+        addAuditEvent("User deleted", user.name, "Account removed from local state");
+        notify("User removed.");
+=======
         addAuditEvent("User reactivated", user.name, "Account access re-enabled in prototype");
         notify(`${user.name}'s demo account has been reactivated.`);
       } else {
@@ -205,6 +247,7 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
         setUsers((previous) => previous.filter((item) => item.id !== user.id));
         addAuditEvent("User deleted", user.name, "Demo account removed from local state");
         notify("Demo user removed.");
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
       }
     }
   };
@@ -217,12 +260,21 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
     if (!name) return;
     if (modal.role) {
       setRoles((previous) => previous.map((role) => role.id === modal.role.id ? { ...role, name, description } : role));
+<<<<<<< HEAD
+      addAuditEvent("Role updated", name, "Role details updated.");
+      notify("Role updated.");
+    } else {
+      setRoles((previous) => [...previous, { id: Date.now(), name, description, users: 0 }]);
+      addAuditEvent("Role created", name, "New role added");
+      notify("Role created.");
+=======
       addAuditEvent("Role updated", name, "Role details updated in prototype");
       notify("Role updated in this prototype.");
     } else {
       setRoles((previous) => [...previous, { id: Date.now(), name, description, users: 0 }]);
       addAuditEvent("Role created", name, "New role added in prototype");
       notify("Role created in this prototype.");
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
     }
     setModal(null);
   };
@@ -234,7 +286,11 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
     }
     if (window.confirm(`Delete the ${role.name} role?`)) {
       setRoles((previous) => previous.filter((item) => item.id !== role.id));
+<<<<<<< HEAD
+      addAuditEvent("Role deleted", role.name, "Role removed.");
+=======
       addAuditEvent("Role deleted", role.name, "Role removed from prototype");
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
       notify("Role deleted.");
     }
   };
@@ -258,8 +314,13 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
   const saveSystemConfig = (event) => {
     event.preventDefault();
     setConfigSaved(true);
+<<<<<<< HEAD
+    addAuditEvent("Configuration changed", "System settings", "System configuration saved in local state");
+    notify("System configuration saved.");
+=======
     addAuditEvent("Configuration changed", "System settings", "System configuration saved in local prototype state");
     notify("System configuration saved in this prototype only.");
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
   };
 
   const navTo = (id) => {
@@ -285,7 +346,11 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
       <aside className={`cfcd-sidebar ${mobileNavOpen ? "is-open" : ""}`}>
         <div className="cfcd-sidebar-brand">
           <img className="cfcd-brand-logo" src={cfcdLogo} alt="CFCD logo" />
+<<<<<<< HEAD
+
+=======
           <div className="cfcd-brand-text"><strong>CFCD Case Tracking System</strong><span>Admin Portal</span></div>
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
           <button className="cfcd-icon-button cfcd-mobile-close" onClick={() => setMobileNavOpen(false)} aria-label="Close navigation"><Icon name="close" /></button>
         </div>
         <div className="cfcd-nav-label">WORKSPACE</div>
@@ -303,7 +368,11 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
           <p>Review access and audit activity regularly.</p>
           <button onClick={() => navTo("security")}>Review security <Icon name="chevron" size={14} /></button>
         </div>
+<<<<<<< HEAD
+        <div className="cfcd-sidebar-bottom"><span className="cfcd-live-dot" /> Demo environment <span className="cfcd-version">v0.1</span></div>
+=======
         <div className="cfcd-sidebar-bottom"><span className="cfcd-live-dot" /> Prototype environment <span className="cfcd-version">v0.1</span></div>
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
       </aside>
       {mobileNavOpen && <button aria-label="Close navigation overlay" className="cfcd-nav-scrim" onClick={() => setMobileNavOpen(false)} />}
 
@@ -311,19 +380,32 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
         <header className="cfcd-topbar">
           <div className="cfcd-topbar-left">
             <button className="cfcd-icon-button cfcd-mobile-menu" onClick={() => setMobileNavOpen(true)} aria-label="Open navigation"><Icon name="menu" /></button>
+<<<<<<< HEAD
+            <div className="cfcd-organisation-title"><strong>Communication Forensics and Cybercrime Division</strong><small>Jamaica Constabulary Force</small></div>
+=======
             <div className="cfcd-breadcrumb"><span>Admin Portal</span><Icon name="chevron" size={14} /><strong>{NAV_ITEMS.find((item) => item.id === activePage)?.label || "Overview"}</strong></div>
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
           </div>
           <div className="cfcd-topbar-right">
             <div className="cfcd-topbar-date"><span className="cfcd-live-dot" /> Operational Overview</div>
             <div className="cfcd-topbar-divider" />
+<<<<<<< HEAD
+            <div className="cfcd-admin-identity"><div className="cfcd-admin-name"><strong>{accountName}</strong><span>System Administrator</span></div></div>
+            <ProfileMenu name={accountName} email={accountEmail} notifications={notifications} role="System Administrator" onSave={onProfileSave} onSignOut={() => { setToast(""); if (typeof onSignOut === "function") onSignOut(); else setIsSignedIn(false); }} />
+=======
             <div className="cfcd-admin-identity"><div className="cfcd-avatar">A</div><div className="cfcd-admin-name"><strong>Administrator</strong><span>System Administrator</span></div></div>
             <button className="cfcd-btn signout" onClick={() => { setToast(""); if (typeof onSignOut === "function") onSignOut(); else setIsSignedIn(false); }}><Icon name="logout" size={16} /><span>Sign out</span></button>
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
           </div>
         </header>
 
         <div className="cfcd-page-content">
           <div className="cfcd-page-heading">
+<<<<<<< HEAD
+            <div><h1>{pageTitle(activePage)}</h1><p>{pageDescription(activePage)}</p></div>
+=======
             <div><div className="cfcd-eyebrow">ADMINISTRATION / {activePage.toUpperCase()}</div><h1>{pageTitle(activePage)}</h1><p>{pageDescription(activePage)}</p></div>
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
             <div className="cfcd-heading-actions">{activePage === "users" && <button className="cfcd-btn primary" onClick={() => openUserModal()}><Icon name="plus" size={17} /> Add user</button>}{activePage === "roles" && <button className="cfcd-btn primary" onClick={() => openRoleModal()}><Icon name="plus" size={17} /> Add role</button>}{activePage === "security" && <button className="cfcd-btn secondary" onClick={exportAuditCsv}><Icon name="download" size={16} /> Export audit log</button>}</div>
           </div>
 
@@ -384,7 +466,11 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
 
           {activePage === "security" && (
             <>
+<<<<<<< HEAD
+              <div className="cfcd-security-summary"><div className="cfcd-security-summary-icon"><Icon name="lock" size={22} /></div><div><strong>Security management</strong><span>Monitor account events and configuration activity. Example audit records below are synthetic and are not a real security log.</span></div></div>
+=======
               <div className="cfcd-security-summary"><div className="cfcd-security-summary-icon"><Icon name="lock" size={22} /></div><div><strong>Security management</strong><span>Monitor account events and configuration activity. Example audit records below are synthetic and are not a real security log.</span></div><StatusPill status="Demo mode" /></div>
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
               <div className="cfcd-metrics-grid cfcd-security-metrics"><MetricCard icon="shield" label="Two-factor enabled" value={`${users.filter((user) => user.twoFactor).length}`} note={`of ${users.length} demo users`} tone="green" /><MetricCard icon="alert" label="Suspended accounts" value={users.filter((user) => user.status === "Suspended").length} note="access disabled in demo" tone="orange" /><MetricCard icon="clock" label="Audit entries" value={auditLogs.length} note="illustrative local entries" tone="blue" /><MetricCard icon="check" label="Policy controls" value="3 / 3" note="example settings available" tone="purple" /></div>
               <section className="cfcd-panel cfcd-full-panel"><div className="cfcd-panel-heading cfcd-table-heading"><div><h2>Audit log</h2><p>Track administrative and account activity</p></div><button className="cfcd-btn secondary" onClick={exportAuditCsv}><Icon name="download" size={16} /> Export CSV</button></div><div className="cfcd-table-toolbar"><label className="cfcd-searchbox"><Icon name="search" size={17} /><input value={auditSearch} onChange={(event) => setAuditSearch(event.target.value)} placeholder="Search action, user, IP address, or details..." /></label><span className="cfcd-muted-text">{filteredAudit.length} entries</span></div><div className="cfcd-table-wrap"><table className="cfcd-table"><thead><tr><th>Date</th><th>Action</th><th>Performed By</th><th>Target User</th><th>IP Address</th><th>Details</th></tr></thead><tbody>{filteredAudit.map((entry) => <tr key={entry.id}><td className="cfcd-nowrap">{entry.date}</td><td><span className="cfcd-audit-action"><span className={`cfcd-audit-dot ${auditDotClass(entry.action)}`} />{entry.action}</span></td><td>{entry.by}</td><td>{entry.target}</td><td><code className="cfcd-ip-code">{entry.ip}</code></td><td className="cfcd-audit-details">{entry.details}</td></tr>)}</tbody></table>{filteredAudit.length === 0 && <div className="cfcd-empty-state"><Icon name="search" size={25} /><strong>No matching audit entries</strong><span>Try another search term.</span></div>}</div><div className="cfcd-panel-footnote">Production audit records should be append-only, access-controlled, time-synchronised, and stored server-side with retention policies.</div></section>
               <section className="cfcd-security-principles"><div><Icon name="shield" size={19} /><strong>Least privilege</strong><span>Grant only the access needed for each role.</span></div><div><Icon name="lock" size={19} /><strong>Strong authentication</strong><span>Require MFA for privileged accounts.</span></div><div><Icon name="eye" size={19} /><strong>Traceability</strong><span>Record who did what, when, and to which account.</span></div></section>
@@ -393,17 +479,29 @@ export default function CFCDAdministratorDashboard({ onSignOut }) {
 
           {activePage === "setup" && (
             <form onSubmit={saveSystemConfig} className="cfcd-system-setup">
+<<<<<<< HEAD
+              <section className="cfcd-panel cfcd-full-panel"><div className="cfcd-panel-heading"><div><h2>System configuration</h2><p>Manage default workflow, security, and notification settings</p></div><span className="cfcd-settings-chip"><Icon name="settings" size={15} /> Administrator settings</span></div><div className="cfcd-setup-section"><div className="cfcd-setup-section-title"><span className="cfcd-setup-section-icon blue"><Icon name="clock" /></span><div><h3>Case turnaround and reminders</h3><p>Default values to help identify cases requiring attention.</p></div></div><div className="cfcd-form-grid"><label className="cfcd-field"><span>Default turnaround target (calendar days)</span><input type="number" min="1" max="365" value={config.defaultTat} onChange={(event) => { setConfig({ ...config, defaultTat: event.target.value }); setConfigSaved(false); }} required /><small>Used as the initial target for new cases; define exclusions with stakeholders.</small></label><label className="cfcd-field"><span>Overdue reminder interval (days)</span><input type="number" min="1" max="30" value={config.overdueReminder} onChange={(event) => { setConfig({ ...config, overdueReminder: event.target.value }); setConfigSaved(false); }} required /><small>Example interval for a future notification service.</small></label></div></div><div className="cfcd-setup-section"><div className="cfcd-setup-section-title"><span className="cfcd-setup-section-icon purple"><Icon name="lock" /></span><div><h3>Security and session policy</h3><p>Recommended controls for protecting restricted case status information.</p></div></div><div className="cfcd-form-grid"><label className="cfcd-field"><span>Session idle timeout (minutes)</span><input type="number" min="5" max="120" value={config.sessionTimeout} onChange={(event) => { setConfig({ ...config, sessionTimeout: event.target.value }); setConfigSaved(false); }} required /><small>Must be enforced by the authentication service.</small></label><label className="cfcd-field"><span>Audit log retention (days)</span><input type="number" min="30" max="3650" value={config.auditRetention} onChange={(event) => { setConfig({ ...config, auditRetention: event.target.value }); setConfigSaved(false); }} required /><small>Final retention period must follow approved policy.</small></label></div><div className="cfcd-toggle-list"><label className="cfcd-toggle-row"><span><strong>Require two-factor authentication</strong><small>Require MFA for users at sign-in, especially privileged roles.</small></span><input type="checkbox" checked={config.requireTwoFactor} onChange={(event) => { setConfig({ ...config, requireTwoFactor: event.target.checked }); setConfigSaved(false); }} /><i /></label><label className="cfcd-toggle-row"><span><strong>Email notifications</strong><small>Enable event notifications when an email service is configured.</small></span><input type="checkbox" checked={config.emailNotifications} onChange={(event) => { setConfig({ ...config, emailNotifications: event.target.checked }); setConfigSaved(false); }} /><i /></label></div></div><div className="cfcd-setup-section"><div className="cfcd-setup-section-title"><span className="cfcd-setup-section-icon orange"><Icon name="alert" /></span><div><h3>System availability</h3><p>Use maintenance mode only through an approved operational process.</p></div></div><label className="cfcd-maintenance-row"><span><strong>Maintenance mode</strong><small>Illustrative switch only. It does not change actual system availability.</small></span><span className={`cfcd-maintenance-state ${config.maintenanceMode ? "enabled" : ""}`}>{config.maintenanceMode ? "Enabled" : "Disabled"}</span><input type="checkbox" checked={config.maintenanceMode} onChange={(event) => { setConfig({ ...config, maintenanceMode: event.target.checked }); setConfigSaved(false); }} /><i /></label></div><div className="cfcd-setup-footer"><div>{configSaved && <span className="cfcd-saved-message"><Icon name="check" size={16} /> Saved to local state</span>}</div><button className="cfcd-btn primary" type="submit">Save configuration <Icon name="chevron" size={15} /></button></div><div className="cfcd-panel-footnote">These settings remain in the component's browser state only. Persisting and enforcing them requires a secured server-side configuration service and change audit.</div></section>
+            </form>
+          )}
+
+          <footer className="cfcd-page-footer"><span>© 2026 CFCD Case Tracking System</span><span><span className="cfcd-live-dot" /> Administrator interface <span className="cfcd-footer-separator">•</span> Sample data </span></footer>
+=======
               <section className="cfcd-panel cfcd-full-panel"><div className="cfcd-panel-heading"><div><h2>System configuration</h2><p>Manage default workflow, security, and notification settings</p></div><span className="cfcd-settings-chip"><Icon name="settings" size={15} /> Administrator settings</span></div><div className="cfcd-setup-section"><div className="cfcd-setup-section-title"><span className="cfcd-setup-section-icon blue"><Icon name="clock" /></span><div><h3>Case turnaround and reminders</h3><p>Default values to help identify cases requiring attention.</p></div></div><div className="cfcd-form-grid"><label className="cfcd-field"><span>Default turnaround target (calendar days)</span><input type="number" min="1" max="365" value={config.defaultTat} onChange={(event) => { setConfig({ ...config, defaultTat: event.target.value }); setConfigSaved(false); }} required /><small>Used as the initial target for new cases; define exclusions with stakeholders.</small></label><label className="cfcd-field"><span>Overdue reminder interval (days)</span><input type="number" min="1" max="30" value={config.overdueReminder} onChange={(event) => { setConfig({ ...config, overdueReminder: event.target.value }); setConfigSaved(false); }} required /><small>Example interval for a future notification service.</small></label></div></div><div className="cfcd-setup-section"><div className="cfcd-setup-section-title"><span className="cfcd-setup-section-icon purple"><Icon name="lock" /></span><div><h3>Security and session policy</h3><p>Recommended controls for protecting restricted case status information.</p></div></div><div className="cfcd-form-grid"><label className="cfcd-field"><span>Session idle timeout (minutes)</span><input type="number" min="5" max="120" value={config.sessionTimeout} onChange={(event) => { setConfig({ ...config, sessionTimeout: event.target.value }); setConfigSaved(false); }} required /><small>Must be enforced by the authentication service.</small></label><label className="cfcd-field"><span>Audit log retention (days)</span><input type="number" min="30" max="3650" value={config.auditRetention} onChange={(event) => { setConfig({ ...config, auditRetention: event.target.value }); setConfigSaved(false); }} required /><small>Final retention period must follow approved policy.</small></label></div><div className="cfcd-toggle-list"><label className="cfcd-toggle-row"><span><strong>Require two-factor authentication</strong><small>Require MFA for users at sign-in, especially privileged roles.</small></span><input type="checkbox" checked={config.requireTwoFactor} onChange={(event) => { setConfig({ ...config, requireTwoFactor: event.target.checked }); setConfigSaved(false); }} /><i /></label><label className="cfcd-toggle-row"><span><strong>Email notifications</strong><small>Enable event notifications when an email service is configured.</small></span><input type="checkbox" checked={config.emailNotifications} onChange={(event) => { setConfig({ ...config, emailNotifications: event.target.checked }); setConfigSaved(false); }} /><i /></label></div></div><div className="cfcd-setup-section"><div className="cfcd-setup-section-title"><span className="cfcd-setup-section-icon orange"><Icon name="alert" /></span><div><h3>System availability</h3><p>Use maintenance mode only through an approved operational process.</p></div></div><label className="cfcd-maintenance-row"><span><strong>Maintenance mode</strong><small>Illustrative switch only. It does not change actual system availability.</small></span><span className={`cfcd-maintenance-state ${config.maintenanceMode ? "enabled" : ""}`}>{config.maintenanceMode ? "Enabled" : "Disabled"}</span><input type="checkbox" checked={config.maintenanceMode} onChange={(event) => { setConfig({ ...config, maintenanceMode: event.target.checked }); setConfigSaved(false); }} /><i /></label></div><div className="cfcd-setup-footer"><div>{configSaved && <span className="cfcd-saved-message"><Icon name="check" size={16} /> Saved to local prototype state</span>}</div><button className="cfcd-btn primary" type="submit">Save configuration <Icon name="chevron" size={15} /></button></div><div className="cfcd-panel-footnote">These settings remain in the component's browser state only. Persisting and enforcing them requires a secured server-side configuration service and change audit.</div></section>
             </form>
           )}
 
           <footer className="cfcd-page-footer"><span>© 2026 CFCD Case Tracking System</span><span><span className="cfcd-live-dot" /> Administrator interface <span className="cfcd-footer-separator">•</span> Prototype data only</span></footer>
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
         </div>
       </main>
 
       {toast && <div className="cfcd-toast" role="status"><span className="cfcd-toast-check"><Icon name="check" size={16} /></span><span>{toast}</span><button onClick={() => setToast("")} aria-label="Dismiss notification"><Icon name="close" size={15} /></button></div>}
 
+<<<<<<< HEAD
+      {modal?.type === "user" && <Modal title={modal.user ? "Edit user" : "Add user"} subtitle="Manage a demonstration account profile." onClose={() => setModal(null)} onSubmit={saveUser} submitLabel={modal.user ? "Save user" : "Create user"}><label className="cfcd-field"><span>Full name</span><input name="name" defaultValue={modal.user?.name || ""} placeholder="Enter user's full name" required autoFocus /></label><label className="cfcd-field"><span>Email address</span><input name="email" type="email" defaultValue={modal.user?.email || ""} placeholder="name@" required /></label><label className="cfcd-field"><span>Role</span><select name="role" defaultValue={modal.user?.role || "CFCD Analyst"}>{roles.map((role) => <option value={role.name} key={role.id}>{role.name}</option>)}</select></label><label className="cfcd-checkbox-field"><input type="checkbox" name="twoFactor" defaultChecked={modal.user?.twoFactor ?? true} /><span>Two-factor authentication enabled (demo flag)</span></label><p className="cfcd-form-note">New accounts are created with Pending status on the front-end. No invitation email is sent.</p></Modal>}
+=======
       {modal?.type === "user" && <Modal title={modal.user ? "Edit user" : "Add user"} subtitle="Manage a demonstration account profile." onClose={() => setModal(null)} onSubmit={saveUser} submitLabel={modal.user ? "Save user" : "Create user"}><label className="cfcd-field"><span>Full name</span><input name="name" defaultValue={modal.user?.name || ""} placeholder="Enter user's full name" required autoFocus /></label><label className="cfcd-field"><span>Email address</span><input name="email" type="email" defaultValue={modal.user?.email || ""} placeholder="name@" required /></label><label className="cfcd-field"><span>Role</span><select name="role" defaultValue={modal.user?.role || "CFCD Analyst"}>{roles.map((role) => <option value={role.name} key={role.id}>{role.name}</option>)}</select></label><label className="cfcd-checkbox-field"><input type="checkbox" name="twoFactor" defaultChecked={modal.user?.twoFactor ?? true} /><span>Two-factor authentication enabled (demo flag)</span></label><p className="cfcd-form-note">New accounts are created with Pending status in this front-end prototype. No invitation email is sent.</p></Modal>}
+>>>>>>> b4b26413299ff0d128111e35c7323bba807e1a87
       {modal?.type === "role" && <Modal title={modal.role ? "Edit role" : "Add role"} subtitle="Define a role name and purpose.Permissions will be enforced in the backend." onClose={() => setModal(null)} onSubmit={saveRole} submitLabel={modal.role ? "Save role" : "Create role"}><label className="cfcd-field"><span>Role name</span><input name="name" defaultValue={modal.role?.name || ""} placeholder="e.g. Court Status Viewer" required autoFocus /></label><label className="cfcd-field"><span>Description</span><textarea name="description" rows="3" defaultValue={modal.role?.description || ""} placeholder="Describe the responsibilities and access scope for this role." /></label>{modal.role?.users > 0 && <p className="cfcd-form-note">This role currently has {modal.role.users} assigned users. Reassign them before deleting the role.</p>}</Modal>}
     </div>
   );
