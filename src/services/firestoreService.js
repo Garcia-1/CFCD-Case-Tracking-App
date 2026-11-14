@@ -210,6 +210,7 @@ function courtSafeCase(record, id) {
     otherRef: record.otherRef || '',
     received: record.received || '',
     status: record.status || 'Unassigned',
+    urgent: Boolean(record.urgent),
     updatedAt: record.updatedAt || new Date().toISOString(),
   };
 }

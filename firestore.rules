@@ -86,7 +86,7 @@ service cloud.firestore {
       allow create, update: if (isSupervisor() || isAdmin())
         && request.resource.data.keys().hasOnly([
           'uid', 'cons', 'registryYear', 'ref', 'otherRef',
-          'received', 'status', 'updatedAt'
+          'received', 'status', 'urgent', 'updatedAt'
         ]);
       allow delete: if isAdmin();
     }
