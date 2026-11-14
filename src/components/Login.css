@@ -1,0 +1,122 @@
+:root{
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  color:#1b2a3e;
+  background:#f4f7fb;
+  font-synthesis:none;
+}
+
+  * { box-sizing: border-box; }
+  .cfcd-login-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(330px, 0.92fr) minmax(520px, 1.08fr);
+    background: #f4f7fb;
+    color: #1b2a3e;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+  }
+  .cfcd-login-side {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: clamp(28px, 4vw, 58px);
+    color: #f5f8ff;
+    background: linear-gradient(145deg, #18334f 0%, #11253d 55%, #0b1a2d 100%);
+  }
+  .cfcd-login-side::before,
+  .cfcd-login-side::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border: 1px solid rgba(117, 171, 237, .14);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cfcd-login-side::before { width: 510px; height: 510px; right: -260px; top: 12%; box-shadow: 0 0 0 38px rgba(117,171,237,.025), 0 0 0 82px rgba(117,171,237,.02); }
+  .cfcd-login-side::after { width: 360px; height: 360px; left: -240px; bottom: -80px; }
+  .cfcd-login-brand { display: flex; align-items: center; gap: 15px; max-width: 450px; }
+  .cfcd-login-logo { width: 68px; height: 68px; flex: 0 0 68px; object-fit: contain; border-radius: 13px; background: #fff; padding: 3px; box-shadow: 0 5px 22px rgba(0,0,0,.22); }
+  .cfcd-login-brand h2 { margin: 0; color: #fff; font-size: clamp(19px, 1.7vw, 25px); line-height: 1.2; letter-spacing: .2px; font-weight: 700; }
+  .cfcd-login-brand p { margin: 6px 0 0; color: #a9bdd8; font-size: 12px; letter-spacing: 1.7px; text-transform: uppercase; }
+  .cfcd-login-message { width: 100%; max-width: 530px; margin: auto 0; padding: 70px 0 62px; }
+  .cfcd-login-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; color: #8ebfff; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .cfcd-login-kicker::before { content: ""; width: 27px; height: 2px; border-radius: 2px; background: #66adff; }
+  .cfcd-login-message h1 { margin: 0 0 22px; max-width: 510px; color: #fff; font-size: clamp(36px, 4.1vw, 56px); font-weight: 700; line-height: 1.08; letter-spacing: -.5px; }
+  .cfcd-login-message > p { max-width: 495px; margin: 0; color: #c0ccde; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.65; }
+  .cfcd-login-side-footer { display: flex; align-items: center; gap: 10px; color: #aab9ce; font-size: 14px; line-height: 1.5; }
+  .cfcd-login-lock { display: inline-grid; place-items: center; width: 27px; height: 27px; flex: 0 0 27px; border: 1px solid rgba(151,188,235,.35); border-radius: 50%; color: #8fc2ff; font-family: Arial, sans-serif; font-size: 13px; }
+  .cfcd-login-main { display: grid; place-items: center; min-width: 0; padding: 38px clamp(23px, 5vw, 76px); background: radial-gradient(circle at 90% 6%, #e6eef9 0, transparent 34%), #f7f9fc; }
+  .cfcd-login-content { width: 100%; max-width: 530px; }
+  .cfcd-login-heading { margin-bottom: 25px; }
+  .cfcd-login-secure { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 13px; color: #2b65aa; font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+  .cfcd-login-secure-dot { width: 7px; height: 7px; border-radius: 50%; background: #1c9c77; box-shadow: 0 0 0 4px #dff5ed; }
+  .cfcd-login-heading h1 { margin: 0 0 9px; color: #1b2a3e; font-size: clamp(32px, 3.2vw, 42px); line-height: 1.1; }
+  .cfcd-login-heading p { margin: 0; color: #687a92; font-size: 17px; line-height: 1.5; }
+  .cfcd-login-form { padding: 23px; border: 1px solid #e1e8f1; border-radius: 15px; background: rgba(255,255,255,.94); box-shadow: 0 14px 36px rgba(18,42,74,.07); }
+  .cfcd-login-field-label { display: block; margin: 0 0 8px; color: #283b55; font-size: 14px; font-weight: 700; }
+  .cfcd-portal-tabs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; margin: 0 0 21px; padding: 5px; border: 1px solid #e3eaf3; border-radius: 10px; background: #f3f6fb; }
+  .cfcd-portal-tab { min-height: 42px; padding: 9px 12px; border: 0; border-radius: 7px; background: transparent; color: #62748b; cursor: pointer; font: 700 15px Inter, "Segoe UI", Arial, sans-serif; transition: background .18s ease, color .18s ease, box-shadow .18s ease; }
+  .cfcd-portal-tab:hover { color: #235d9b; }
+  .cfcd-portal-tab.is-selected { color: #fff; background: #284768; box-shadow: 0 3px 9px rgba(23,60,112,.2); }
+  .cfcd-login-field { margin-bottom: 17px; }
+  .cfcd-login-input-wrap { position: relative; }
+  .cfcd-login-input { width: 100%; height: 48px; padding: 0 14px; border: 1px solid #d4deea; border-radius: 8px; outline: none; background: #fff; color: #1a2d46; font: 16px Inter, "Segoe UI", Arial, sans-serif; transition: border-color .18s ease, box-shadow .18s ease; }
+  .cfcd-login-input::placeholder { color: #9aa7b8; }
+  .cfcd-login-input:focus { border-color: #3c79c8; box-shadow: 0 0 0 3px rgba(60,121,200,.13); }
+  .cfcd-login-input.has-toggle { padding-right: 54px; }
+  .cfcd-show-password { position: absolute; top: 50%; right: 7px; transform: translateY(-50%); padding: 8px 10px; border: 0; border-radius: 6px; background: transparent; color: #466486; cursor: pointer; font: 13px Arial, sans-serif; }
+  .cfcd-show-password:hover { background: #edf3fb; }
+  .cfcd-signin-button { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 49px; margin-top: 5px; border: 0; border-radius: 8px; background: #2563aa; color: #fff; cursor: pointer; font: 700 17px Inter, "Segoe UI", Arial, sans-serif; transition: background .18s ease, transform .18s ease; }
+  .cfcd-signin-button:hover { background: #194e8b; }
+  .cfcd-signin-button:active { transform: translateY(1px); }
+  .cfcd-login-feedback { margin: 14px 0 0; padding: 11px 12px; border-radius: 8px; font-size: 14px; line-height: 1.45; }
+  .cfcd-login-feedback.error { border: 1px solid #f1cccc; background: #fff2f2; color: #a53232; }
+  .cfcd-login-feedback.success { border: 1px solid #c9eadc; background: #effaf5; color: #176646; }
+  .cfcd-demo-section { margin-top: 22px; }
+  .cfcd-demo-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 11px; }
+  .cfcd-demo-heading h2 { margin: 0; color: #314c68; font-size: 18px; }
+  .cfcd-demo-heading span { color: #8593a5; font-size: 12px; }
+  .cfcd-demo-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
+  .cfcd-demo-card { min-width: 0; padding: 12px 13px; border: 1px solid #e0e7f0; border-radius: 10px; background: #fff; }
+  .cfcd-demo-card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .cfcd-demo-card strong { display: block; color: #314c68; font-size: 15px; }
+  .cfcd-demo-badge { flex: 0 0 auto; padding: 3px 6px; border-radius: 5px; background: #edf3fd; color: #3665a1; font-size: 10px; font-weight: 700; }
+  .cfcd-demo-description { margin: 0 0 9px; color: #8491a2; font-size: 12px; }
+  .cfcd-demo-credential { margin: 4px 0; overflow-wrap: anywhere; color: #4a5f79; font-size: 12px; line-height: 1.45; }
+  .cfcd-demo-credential b { color: #7b8ba0; font-weight: 700; }
+  .cfcd-demo-use { display: inline-block; margin-top: 7px; padding: 0; border: 0; background: transparent; color: #2563aa; cursor: pointer; font: 700 13px Inter, "Segoe UI", Arial, sans-serif; }
+  .cfcd-demo-use:hover { color: #194e8b; text-decoration: underline; }
+  .cfcd-demo-note { margin: 12px 0 0; color: #8a97a9; font-size: 12px; line-height: 1.5; }
+  .cfcd-login-bottom-note { margin-top: 19px; color: #8a97a8; text-align: center; font-size: 12px; line-height: 1.5; }
+  @media (max-width: 1050px) {
+    .cfcd-login-page { grid-template-columns: minmax(290px, .8fr) minmax(480px, 1.2fr); }
+    .cfcd-login-side { padding: 30px; }
+    .cfcd-login-logo { width: 58px; height: 58px; flex-basis: 58px; }
+    .cfcd-login-message h1 { font-size: 40px; }
+    .cfcd-login-main { padding: 30px 24px; }
+  }
+  @media (max-width: 780px) {
+    .cfcd-login-page { grid-template-columns: 1fr; }
+    .cfcd-login-side { min-height: auto; padding: 22px 22px 25px; }
+    .cfcd-login-brand { gap: 12px; }
+    .cfcd-login-logo { width: 52px; height: 52px; flex-basis: 52px; border-radius: 10px; }
+    .cfcd-login-brand h2 { font-size: 19px; }
+    .cfcd-login-brand p { font-size: 10px; letter-spacing: 1.1px; }
+    .cfcd-login-message { padding: 31px 0 24px; margin: 0; }
+    .cfcd-login-kicker { margin-bottom: 12px; font-size: 10px; }
+    .cfcd-login-message h1 { max-width: 520px; margin-bottom: 12px; font-size: clamp(29px, 7vw, 42px); }
+    .cfcd-login-message > p { font-size: 16px; line-height: 1.55; }
+    .cfcd-login-side-footer { font-size: 12px; }
+    .cfcd-login-main { padding: 30px 18px 36px; }
+    .cfcd-login-content { max-width: 560px; }
+    .cfcd-login-heading h1 { font-size: 34px; }
+  }
+  @media (max-width: 460px) {
+    .cfcd-login-form { padding: 16px; }
+    .cfcd-portal-tab { padding: 9px 7px; font-size: 14px; }
+    .cfcd-demo-grid { grid-template-columns: 1fr; }
+    .cfcd-demo-card { padding: 12px; }
+    .cfcd-demo-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+  }

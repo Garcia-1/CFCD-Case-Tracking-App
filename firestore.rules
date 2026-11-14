@@ -1,0 +1,128 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function hasProfile() {
+      return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function profile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function active() {
+      return hasProfile() && profile().status == 'Active';
+    }
+
+    function maintenanceOff() {
+      return !exists(/databases/$(database)/documents/systemConfig/main)
+        || get(/databases/$(database)/documents/systemConfig/main).data.maintenanceMode != true;
+    }
+
+    function isAdmin() {
+      return active() && profile().portal == 'admin';
+    }
+
+    function operational() {
+      return active() && (maintenanceOff() || profile().portal == 'admin');
+    }
+
+    function isCFCD() {
+      return operational() && profile().portal == 'cfcd';
+    }
+
+    function isCourt() {
+      return operational() && profile().portal == 'court';
+    }
+
+    function isSupervisor() {
+      return isCFCD() && profile().role == 'Supervisor';
+    }
+
+    function isAnalyst() {
+      return isCFCD() && profile().role == 'Analyst';
+    }
+
+    match /users/{userId} {
+      // Users can always read their own profile after Firebase Auth succeeds.
+      // Administrators manage account metadata. Supervisors may read CFCD
+      // directory profiles so analyst assignment options can come from Firestore.
+      allow read: if signedIn() && (
+        request.auth.uid == userId
+        || isAdmin()
+        || (isSupervisor() && resource.data.portal == 'cfcd')
+      );
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /cases/{caseId} {
+      // Administrators and supervisors can read the full registry.
+      // Analysts can only read cases assigned to their Firebase UID. Legacy
+      // name-based assignments remain readable during migration.
+      // Court accounts never receive the full investigative record.
+      allow read: if isAdmin()
+        || isSupervisor()
+        || (isAnalyst() && (
+          (('analystUid' in resource.data) && resource.data.analystUid == request.auth.uid)
+          || resource.data.analyst == profile().name
+        ));
+      allow create: if isSupervisor();
+      allow update: if isSupervisor() || (isAnalyst()
+        && resource.data.analyst == profile().name
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['analystReport', 'updatedAt', 'history']));
+      allow delete: if isAdmin();
+    }
+
+    match /courtCaseStatus/{caseId} {
+      // Deliberately reduced court-safe status snapshot.
+      allow read: if isCourt() || isSupervisor() || isAdmin();
+      allow create, update: if (isSupervisor() || isAdmin())
+        && request.resource.data.keys().hasOnly([
+          'uid', 'cons', 'registryYear', 'ref', 'otherRef',
+          'received', 'status', 'updatedAt'
+        ]);
+      allow delete: if isAdmin();
+    }
+
+    match /urgentRequests/{requestId} {
+      allow read: if isCourt() || isSupervisor() || isAdmin();
+
+      // Court accounts may create requests but cannot approve or review them.
+      allow create: if isCourt()
+        && request.resource.data.submittedByUid == request.auth.uid
+        && request.resource.data.requestStatus == 'Pending Review'
+        && request.resource.data.replyStatus == ''
+        && request.resource.data.publicNote == ''
+        && request.resource.data.reviewedBy == ''
+        && request.resource.data.reviewedAt == '';
+
+      allow update: if isSupervisor() || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /roles/{roleId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    match /auditLogs/{auditId} {
+      allow read, create: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    match /systemConfig/{configId} {
+      // Active users may read runtime policy values such as session timeout and
+      // maintenance mode. Only administrators may change them.
+      allow read: if active();
+      allow create, update: if isAdmin();
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

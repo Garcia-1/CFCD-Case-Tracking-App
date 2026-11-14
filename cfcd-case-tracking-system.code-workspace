@@ -5,6 +5,14 @@
     }
   ],
   "settings": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "files.eol": "\n",
+    "js/ts.preferences.quoteStyle": "single"
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode"
+    ]
   }
 }
