@@ -120,3 +120,8 @@
     .cfcd-demo-card { padding: 12px; }
     .cfcd-demo-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
   }
+
+/* Retain the portal-specific photo treatment from main without reducing form contrast. */
+.cfcd-login-main{position:relative;isolation:isolate;overflow:hidden}
+.cfcd-login-main::before{content:"";position:absolute;inset:0;z-index:-1;background-image:var(--portal-background);background-position:center;background-size:cover;background-repeat:no-repeat;opacity:.18;pointer-events:none}
+.cfcd-login-form{background:rgba(255,255,255,.93)}

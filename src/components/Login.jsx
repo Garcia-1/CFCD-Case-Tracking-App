@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import cfcdLogo from '../assets/CFCD-logo.jpg';
+import courtBackground from '../assets/court-portal-background.webp';
+import cfcdBackground from '../assets/CFCD-portal-background.jpg';
 import { firebaseConfigured, firebaseConfigMessage } from '../firebase';
 import { signInWithPortal } from '../services/authService';
 import './Login.css';
@@ -128,7 +130,7 @@ export default function Login({ onLogin }) {
           </footer>
         </aside>
 
-        <section className="cfcd-login-main">
+        <section className="cfcd-login-main" style={{ '--portal-background': `url(${role === 'court' ? courtBackground : cfcdBackground})` }}>
           <div className="cfcd-login-content">
             <header className="cfcd-login-heading">
               <div className="cfcd-login-secure"><span className="cfcd-login-secure-dot" /> CFCD secure access</div>
